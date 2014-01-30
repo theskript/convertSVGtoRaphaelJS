@@ -61,7 +61,7 @@ class svg
     {
         file_put_contents(''.$this->dir.'/'.$this->tmpfile, fopen('http://'.$this->file.'', 'r'));
         $filepath = realpath('./'.$this->dir.'/'.$this->tmpfile);
-        $output = $this->getRaphaelJScode($filepath)
+        $output = $this->getRaphaelJScode($filepath);
         return $output;
         exit();
     }
@@ -72,8 +72,8 @@ class svg
     }
 }
 
-$svg = new svg();
+$svg = new svg($_GET['url'],'tmpdir');
 echo '<pre>';
-echo $svg->convert($_GET['url'],'tmpdir');
+echo $svg->convert();
 echo '</pre>';
 ?>
