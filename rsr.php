@@ -12,6 +12,8 @@ class svg
     private $file;
     private $dir;
     private $tmpfile;
+    private $filepath;
+    
     public function __construct($url,$dirname)
     {
         $this->file = $url;
@@ -21,15 +23,14 @@ class svg
         {
             mkdir($this->dir, 0777, true);
         }
-        
     }
     
-    public function getRaphaelJScode($filepath)
+    public function getRaphaelJScode()
     {
         $ch = curl_init();
         $post_data = array(
             'MAX_FILE_SIZE' => '100000000', 
-            'image' => '@'.$filepath,
+            'image' => '@'.$this->filepath,
             'submit' => 'Send'
         );
         
@@ -60,15 +61,15 @@ class svg
     public function convert()
     {
         file_put_contents(''.$this->dir.'/'.$this->tmpfile, fopen('http://'.$this->file.'', 'r'));
-        $filepath = realpath('./'.$this->dir.'/'.$this->tmpfile);
-        $output = $this->getRaphaelJScode($filepath);
+        $this->filepath = realpath('./'.$this->dir.'/'.$this->tmpfile);
+        $output = $this->getRaphaelJScode();
         return $output;
         exit();
     }
     
     public function __destruct()
     {
-        unlink($filepath);
+        unlink($this->filepath);
     }
 }
 
