@@ -70,6 +70,7 @@ class svg
     public function __destruct()
     {
         unlink($this->filepath);
+        unlink($this->dir);
     }
 }
 
