@@ -22,7 +22,7 @@ class svg
     
     // Send our temp SVG file to ReadySetRaphael and get back RaphaelJS code
 	public function getRaphaelJScode()
-    {        
+	{        
 		
 		$ch = curl_init();
         $post_data = array(
