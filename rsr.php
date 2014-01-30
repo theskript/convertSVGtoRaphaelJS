@@ -2,7 +2,7 @@
 /*************************************************************************************************
  * 
  * 
- *         Send a remote svg file to readysetraphael.com using cURL and get raphaeljs code.
+ *         Send a remote svg file to readysetraphael.com using cURL and get RaphaelJS code.
  * 
  * 
 *************************************************************************************************/
@@ -10,24 +10,21 @@
 class svg
 {
     private $file;
-    private $dir;
     private $tmpfile;
     private $filepath;
     
-    public function __construct($url,$dirname)
+	// Set Core Variables
+    public function __construct($url)
     {
         $this->file = $url;
-        $this->dir = $dirname;
         $this->tmpfile = uniqid(rand(), true) . '.svg';
-        if (!file_exists($this->dir)) 
-        {
-            mkdir($this->dir, 0777, true);
-        }
     }
     
-    public function getRaphaelJScode()
-    {
-        $ch = curl_init();
+    // Send our temp SVG file to ReadySetRaphael and get back RaphaelJS code
+	public function getRaphaelJScode()
+    {        
+		
+		$ch = curl_init();
         $post_data = array(
             'MAX_FILE_SIZE' => '100000000', 
             'image' => '@'.$this->filepath,
@@ -39,8 +36,8 @@ class svg
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_COOKIEJAR, "my_cookies.txt");
-        curl_setopt($ch, CURLOPT_COOKIEFILE, "my_cookies.txt");
+        curl_setopt($ch, CURLOPT_COOKIEJAR, "".uniqid(rand(), true).".txt");
+        curl_setopt($ch, CURLOPT_COOKIEFILE, "".uniqid(rand(), true).".txt");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.3) Gecko/20070309 Firefox/2.0.0.3");
         
@@ -58,24 +55,25 @@ class svg
         return $data;
     }
     
-    public function convert()
-    {
-        file_put_contents(''.$this->dir.'/'.$this->tmpfile, fopen('http://'.$this->file.'', 'r'));
-        $this->filepath = realpath('./'.$this->dir.'/'.$this->tmpfile);
-        $output = $this->getRaphaelJScode();
-        return $output;
+    // Store Temp SVG file on server && Return RaphaelJS output	
+	public function convert()
+    {       
+		file_put_contents(''.$this->tmpfile, fopen('http://'.$this->file, 'r'));
+        $this->filepath = realpath('./'.$this->tmpfile);
+        return $this->getRaphaelJScode();
         exit();
     }
     
-    public function __destruct()
-    {
-        unlink($this->filepath);
-        unlink($this->dir);
+    // Remove Temp SVG from server
+	public function __destruct()
+    {        
+		unlink($this->filepath);
     }
 }
 
-$svg = new svg($_GET['url'],'tmpdir');
+$svg = new svg($_GET['url']);
 echo '<pre>';
 echo $svg->convert();
 echo '</pre>';
+
 ?>
