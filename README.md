@@ -1,7 +1,7 @@
 convertSVGtoRaphaelJS
 =====================
 
-Uses readysetraphael.com service to convert Svg files to RaphaelJS code.
+Send a remote svg file to readysetraphael.com using cURL and get raphaeljs code.
 
 Usage Example:
 =====================
