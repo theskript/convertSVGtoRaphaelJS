@@ -70,10 +70,4 @@
 			unlink($this->filepath);
 		}
 	}
-
-$svg = new svg($_GET['url']);
-echo '<pre>';
-echo $svg->convert();
-echo '</pre>';
-
 ?>
