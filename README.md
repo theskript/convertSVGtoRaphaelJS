@@ -8,6 +8,8 @@ Usage Example:
 
 It's simple: Initiate the class and enjoy!
 <pre>
+<?php
+require_once("svg.class.php");
 $svg = new svg($_GET['url']);
 echo $svg->convert();
 </pre>
