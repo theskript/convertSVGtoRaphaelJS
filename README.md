@@ -7,12 +7,13 @@ Usage Example:
 =====================
 
 It's simple: Initiate the class and enjoy!
+
 <pre>
-<?php
 require_once("svg.class.php");
 $svg = new svg($_GET['url']);
 echo $svg->convert();
 </pre>
+
 
 http://www.theskript.com/demos/rsr.php?url= [URL GOES HERE, NO HTTP://]
 
