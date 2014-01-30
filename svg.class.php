@@ -2,7 +2,7 @@
 /*************************************************************************************************
 * 
 * 
-*         Send a remote svg file to readysetraphael.com using cURL and get RaphaelJS code.
+*         Send a remote svg file to readysetraphael.com using cURL and get RaphaelJS code
 * 
 * 
 *************************************************************************************************/
