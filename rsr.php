@@ -1,11 +1,11 @@
 <?php
-/****************************************************************************************
+/*************************************************************************************************
  * 
  * 
- *         Send a svg file to readysetraphael.com using curl and get raphaeljs code.
+ *         Send a remote svg file to readysetraphael.com using cURL and get raphaeljs code.
  * 
  * 
-****************************************************************************************/
+*************************************************************************************************/
 
 
 $file = $_GET['url'];
@@ -39,7 +39,7 @@ $file = array_reverse(explode('/',$file));
 $file = substr($file[0],0,-4);
 $file = preg_replace("/[^A-Za-z0-9 ]/", '', $file);
 $data = str_replace('rsr',$file,$data);
-echo $data;
+echo '<pre>' . $data . '</pre>';
 unlink($filepath);
 
 ?>
